@@ -2,6 +2,9 @@
 
 Share photos, videos, voice notes and documents with friends.
 
+**Use it: [braincandy-toffee.torii-edge-cloud.duckdns.org](https://braincandy-toffee.torii-edge-cloud.duckdns.org/)**
+(on a phone, add it to your Home Screen and it works like an app)
+
 toffee is a small, calm social and chat app. Everyone has their own channel. You post there,
 talk privately, start one-off groups, and call people, all from the browser. It installs like
 an app (PWA) and needs no app store.
@@ -37,7 +40,7 @@ mkdir -p /tmp/toffee-data
 TOFFEE_DATA=/tmp/toffee-data php -d upload_max_filesize=55M -d post_max_size=60M -S 127.0.0.1:8099 -t . router.php
 ```
 
-Open http://127.0.0.1:8099 and create a profile. The database (`toffee.db`) and uploads go in
+This runs your own copy, on your computer only. Open http://127.0.0.1:8099 and create a profile. The database (`toffee.db`) and uploads go in
 `TOFFEE_DATA`. Calls and phone notifications need `https` (or `localhost`).
 
 Run the tests:
