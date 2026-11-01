@@ -1,6 +1,8 @@
-# toffee
+<p align="center"><img src="toffee-logo.png" alt="toffee logo" width="120"></p>
 
-Share photos, videos, voice notes and documents with friends.
+<h1 align="center">toffee</h1>
+
+<p align="center">Share photos, videos, voice notes and documents with friends.</p>
 
 **Use it: [braincandy-toffee.torii-edge-cloud.duckdns.org](https://braincandy-toffee.torii-edge-cloud.duckdns.org/)**
 (on a phone, add it to your Home Screen and it works like an app)
@@ -26,6 +28,10 @@ an app (PWA) and needs no app store.
 | **Phone notifications** | Web Push, also for calls (they ring) |
 | **Fast on slow phones** | What you've seen is kept on the phone and opens at once; your messages show the moment you send |
 | **Themes** | 9 themes, light and dark; pick the font and text size |
+
+![toffee on a phone: the home feed, a private chat with a voice note, a group thread (dark theme), and a channel with a photo](docs/screenshots/toffee-phones.jpg)
+
+*Home, a private chat with a voice note, a one-off group (dark theme), and a channel. Made-up people and pictures.*
 
 How it works inside, with diagrams: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
