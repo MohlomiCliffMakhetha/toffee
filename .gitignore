@@ -1,0 +1,23 @@
+# Not part of toffee: macOS folder files, and browser-testing leftovers.
+.DS_Store
+.playwright-mcp/
+# Gzipped copies of the static files, made by tools/precompress.php when the app is built.
+.gz/
+# Data and secrets: never in git (toffee keeps them in TOFFEE_DATA, outside the code).
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+uploads/
+sessions/
+data/
+vapid.json
+.env
+.env.*
+*.pem
+*.key
+*.log
+# Editor and agent leftovers.
+*.swp
+.sisyphus/

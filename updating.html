@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c8822f">
+<title>toffee is updating</title>
+<!-- Shown by the service worker (sw.js) when toffee can't be reached: while a new version goes
+     live (the front door then answers 502/503 for a few minutes), or when the phone is offline.
+     It checks every 20 s and opens toffee by itself as soon as it's back. Kept on the phone, so it
+     needs nothing from the server. -->
+<style>
+    :root { --bg: #fbf6ef; --card: #fff; --text: #3a2a1a; --muted: #7a6650; --accent: #b8661c; --line: #ead9c3; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1b2430; --card: #222e3c; --text: #e8edf3; --muted: #9fb0c2; --accent: #6db3f2; --line: #33465c; } }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body { display: flex; align-items: center; justify-content: center; padding: 24px; background: var(--bg); color: var(--text);
+        font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    .card { width: min(100%, 420px); padding: 28px 24px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); text-align: center; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 28px; color: var(--accent); margin-bottom: 14px; }
+    .brand img { width: 44px; height: 44px; }
+    h1 { font-size: 20px; margin: 0 0 8px; }
+    p { margin: 0 0 12px; color: var(--muted); }
+    .status { margin: 16px 0 14px; font-size: 14px; color: var(--muted); }
+    .dot { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s ease-in-out infinite; vertical-align: 1px; }
+    @keyframes pulse { 50% { opacity: 0.3; } }
+    @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+    button { min-height: 44px; padding: 0 22px; border-radius: 10px; border: 1px solid var(--accent); background: var(--accent); color: var(--card);
+        font: inherit; font-weight: 700; cursor: pointer; }
+</style>
+</head>
+<body>
+<main class="card" role="status" aria-live="polite">
+    <div class="brand"><img src="/toffee-logo-64.webp?v=2" alt=""> toffee</div>
+    <h1 id="title">toffee is updating</h1>
+    <p id="say">A new version is going live. It's back in about 3–5 minutes.</p>
+    <p id="say2">You don't need to do anything: this page opens toffee by itself as soon as it's ready.</p>
+    <div class="status"><span class="dot"></span><span id="status">Checking…</span></div>
+    <button type="button" id="now">Try now</button>
+</main>
+<script>
+(() => {
+    const status = document.getElementById('status');
+    const offline = () => navigator.onLine === false;
+    const words = () => {
+        if (!offline()) return;
+        document.getElementById('title').textContent = 'No connection';
+        document.getElementById('say').textContent = "This phone isn't online right now.";
+        document.getElementById('say2').textContent = "toffee opens by itself when you're back online.";
+    };
+    words();
+    let next = 20, busy = false;
+    async function check() {
+        if (busy) return;
+        busy = true;
+        status.textContent = 'Checking…';
+        try {
+            const r = await fetch('/healthz', { cache: 'no-store' });
+            if (r.ok && (await r.text()).trim() === 'ok') { status.textContent = 'Back! Opening toffee…'; location.reload(); return; }
+        } catch (e) { /* not yet */ }
+        busy = false;
+        next = 20;
+        words();
+    }
+    setInterval(() => {
+        if (busy) return;
+        next -= 1;
+        status.textContent = `Checking again in ${next} s`;
+        if (next <= 0) check();
+    }, 1000);
+    document.getElementById('now').addEventListener('click', check);
+    window.addEventListener('online', check);
+    check();
+})();
+</script>
+</body>
+</html>

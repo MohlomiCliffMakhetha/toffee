@@ -1,0 +1,11 @@
+# Kept out of the image: none of this is part of the site (router.php also refuses these paths).
+.git
+.gitignore
+**/.DS_Store
+.playwright-mcp
+.sisyphus
+.dockerignore
+docs
+tests
+*.md
+.gz

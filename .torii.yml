@@ -1,0 +1,5 @@
+memory: 512
+# The database, uploads and sign-ins in /data are kept in Torii's storage (Garage),
+# so Toffee starts on any Pi if the one it runs on fails (Torii docs/DATA-APPS.md).
+data: replicated
+db_path: /data/toffee.db
